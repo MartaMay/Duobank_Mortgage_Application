@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.LoginPage;
 import pages.SignUpPage;
 import utilities.ConfigReader;
 import utilities.Driver;
@@ -85,4 +86,15 @@ public class SignUpStepDefs {
         Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//h4[text()]")).getText(), "Welcome Back!");
     }
 
+    @When("User input email and password")
+    public void userInputEmailAndPassword() {
+        Driver.getDriver().get(ConfigReader.getProperty("url"));
+        new LoginPage().login();
+        new LoginPage().getSingInButton().click();
+    }
+
+    @Then("User should be logged in")
+    public void userShouldBeLoggedIn() {
+        System.out.println("Logged");
+    }
 }
