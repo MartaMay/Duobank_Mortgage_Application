@@ -11,9 +11,10 @@ import org.junit.runner.RunWith;
         features = "src/test/resources",
         glue = "stepDefinitions",
         plugin = {
-             "html:target/cucumber-report/report.html"
-        },
-        publish = true
+                "pretty",
+                "html:target/cucumber-report/report.html"
+        }
+//        ,publish = true
 //      ,dryRun = true
 )
 @RunWith(Cucumber.class)
