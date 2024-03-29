@@ -10,10 +10,10 @@ Feature: Account sign up for Bank Mortgage Application
   Given User is on the login page of the bank mortgage application
   And User navigates to the sign up page
 
-  @smoke
+
   Scenario: Verify input fields
     Then User should see that sign up page includes input fields for the user's First Name, Last Name, Email Address, and Password
-  @smoke
+
   Scenario: Attempt to sign up with missing required fields
     When User doesn't enter any data in the First Name, Last Name, Email Address, and Password fields
     And User attempts to click the Sign Up button
@@ -29,14 +29,19 @@ Feature: Account sign up for Bank Mortgage Application
     And User clicks the Sign Up button
     Then User should see a Registration Successful message
 #    And User should be redirected to the Login page
-  @smoke
+
   Scenario: Attempt to sign up with an existing email address
     When User attempts to sign up with existing email
     Then User should see an error message This email already used
-  @smoke
+
   Scenario: Navigate to Sign In page from Sign Up page
     When User clicks on the Already have an account? Sign in link
     Then User should be redirected to the Sign In page
+
+  @smoke
+    Scenario: Login
+      When User input email and password
+      Then User should be logged in
 
 
 
