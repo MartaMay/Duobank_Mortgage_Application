@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.ConfigReader;
 import utilities.Driver;
 
+import java.util.List;
+
 @Data
 public class LoginPage {
 
@@ -24,7 +26,13 @@ public class LoginPage {
     @FindBy (xpath = "//button[@name='login']")
     private WebElement singInButton;
 
+    @FindBy (xpath = "//form//div")
+    private List<WebElement> inputLinks;
+
     public void login(){
         email.sendKeys(ConfigReader.getProperty("email"), Keys.TAB, ConfigReader.getProperty("password"));
+    }
+    public void login(String email, String password){
+        this.email.sendKeys(email, Keys.TAB, password);
     }
 }

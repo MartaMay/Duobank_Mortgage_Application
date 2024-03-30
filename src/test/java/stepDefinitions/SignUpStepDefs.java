@@ -85,16 +85,4 @@ public class SignUpStepDefs {
     public void user_should_be_redirected_to_the_sign_in_page() {
         Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//h4[text()]")).getText(), "Welcome Back!");
     }
-
-    @When("User input email and password")
-    public void userInputEmailAndPassword() {
-        Driver.getDriver().get(ConfigReader.getProperty("url"));
-        new LoginPage().login();
-        new LoginPage().getSingInButton().click();
-    }
-
-    @Then("User should be logged in")
-    public void userShouldBeLoggedIn() {
-        System.out.println("Logged");
-    }
 }

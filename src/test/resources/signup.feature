@@ -28,7 +28,7 @@ Feature: Account sign up for Bank Mortgage Application
       |Password123|
     And User clicks the Sign Up button
     Then User should see a Registration Successful message
-#    And User should be redirected to the Login page
+    And User should be redirected to the Login page
 
   Scenario: Attempt to sign up with an existing email address
     When User attempts to sign up with existing email
@@ -37,11 +37,6 @@ Feature: Account sign up for Bank Mortgage Application
   Scenario: Navigate to Sign In page from Sign Up page
     When User clicks on the Already have an account? Sign in link
     Then User should be redirected to the Sign In page
-
-  @smoke
-    Scenario: Login
-      When User input email and password
-      Then User should be logged in
 
 
 
