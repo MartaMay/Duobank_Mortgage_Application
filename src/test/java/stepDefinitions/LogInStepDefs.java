@@ -42,8 +42,9 @@ public class LogInStepDefs {
     }
 
     @Then("User should see warning indicating that these fields are required and cannot be left blank")
-    public void userShouldSeeWarningsNextToTheEmailAndPasswordFieldsIndicatingThatTheseFieldsAreRequiredAndCannotBeLeftBlank() {
+    public void userShouldSeeWarningsNextToTheEmailAndPasswordFieldsIndicatingThatTheseFieldsAreRequiredAndCannotBeLeftBlank() throws InterruptedException {
 //    Driver.getDriver().switchTo().frame(0);
+        Thread.sleep(2000);
         String warning = Driver.getDriver().findElement(By.xpath("//*[contains(text(),'Please fill out this field')]")).getText();
         Assert.assertEquals("Please fill out this field", warning);
     }
@@ -55,7 +56,8 @@ public class LogInStepDefs {
     }
 
     @Then("User should see an error message \"Please enter a valid email address\"")
-    public void userShouldSeeAnErrorMessage() {
+    public void userShouldSeeAnErrorMessage() throws InterruptedException {
+        Thread.sleep(2000);
         Driver.getDriver().switchTo().frame(0);
         String warning = Driver.getDriver().findElement(By.xpath("//*[contains(text(),'Please include')]")).getText();
         Assert.assertEquals("Please fill out this field", warning);

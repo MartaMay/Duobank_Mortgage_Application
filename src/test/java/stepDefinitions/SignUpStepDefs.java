@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import pages.SignUpPage;
@@ -35,9 +36,8 @@ public class SignUpStepDefs {
 
     @When("User doesn't enter any data in the First Name, Last Name, Email Address, and Password fields")
     public void user_doesn_t_enter_any_data_in_the_first_name_last_name_email_address_and_password_fields() {
-       new SignUpPage().validSignUp("","","","");
+      new SignUpPage().validSignUp("","","","");
     }
-
     @When("User attempts to click the Sign Up button")
     public void user_attempts_to_click_the_sign_up_button() {
        new SignUpPage().getSignUpButton().click();
@@ -45,15 +45,14 @@ public class SignUpStepDefs {
 
     @Then("User should see validation errors for all required fields")
     public void user_should_see_validation_errors_for_all_required_fields() {
-        System.out.println("find assert");
+        Assert.assertEquals("Please match the expected format",
+                Driver.getDriver().findElement(By.partialLinkText("Please")).getText());
     }
 
     @When("User fills all required fields for First Name, Last Name, Email and Password with the following data")
     public void user_fills_all_required_fields_with_the_following_data(List<String> input) {
         new SignUpPage().validSignUp(input.get(0), input.get(1), input.get(2), input.get(3));
-
     }
-
     @And("User clicks the Sign Up button")
     public void user_clicks_the_sign_up_button() {
        new SignUpPage().getSignUpButton().click();
@@ -68,12 +67,18 @@ public class SignUpStepDefs {
         Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//h4[text()]")).getText(), "Welcome Back!");
     }
 
+    @When("User fills all required fields for First Name, Last Name, Email and Password with random data")
+    public void userFillsAllRequiredFieldsForFirstNameLastNameEmailAndPasswordWithRandomData() throws InterruptedException {
+        new SignUpPage().randomDataSignUp();
+    }
+
     @When("User attempts to sign up with existing email")
     public void user_attempts_to_sign_up_with_the_email() {
-       new SignUpPage().validSignUp("Mark", "Johnson", "mark.johnson@example.com", "Password123");
+       new SignUpPage().getEmail().sendKeys(ConfigReader.getProperty("email"), Keys.ENTER);
     }
     @Then("User should see an error message This email already used")
-    public void user_should_see_an_error_message() {
+    public void user_should_see_an_error_message() throws InterruptedException {
+        Thread.sleep(2000);
         Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//span[text()]")).getText(), "This email already used");
     }
 
@@ -83,6 +88,6 @@ public class SignUpStepDefs {
     }
     @Then("User should be redirected to the Sign In page")
     public void user_should_be_redirected_to_the_sign_in_page() {
-        Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//h4[text()]")).getText(), "Welcome Back!");
+        Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//h4[text()='Welcome Back!']")).getText(), "Welcome Back!");
     }
 }
