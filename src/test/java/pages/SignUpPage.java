@@ -1,5 +1,6 @@
 package pages;
 
+import com.github.javafaker.Faker;
 import lombok.Data;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -41,28 +42,19 @@ public class SignUpPage {
     @FindBy(id = "register")
     private WebElement signUpButton;
 
-    public void inputFirstName(String firstname){
-        firstName.click();
-    }
-
-    public void inputLastName(){
-        lastName.sendKeys(ConfigReader.getProperty("lastName"),
-                        Keys.TAB);
-    }
-    public void inputEmail(){
-        email.sendKeys(ConfigReader.getProperty("email"),
-                Keys.TAB);
-    }
-    public void inputPassword(){
-        password.sendKeys(ConfigReader.getProperty("password"),
-                Keys.ENTER);
-    }
-
     public void validSignUp(String first, String last, String email, String password){
         firstName.sendKeys(first);
         lastName.sendKeys(last);
         this.email.sendKeys(email);
         this.password.sendKeys(password);
+    }
+
+    public void randomDataSignUp(){
+        Faker faker = new Faker();
+        firstName.sendKeys(faker.name().firstName());
+        lastName.sendKeys(faker.name().lastName());
+        this.email.sendKeys(faker.internet().emailAddress());
+        password.sendKeys("paSSword321");
     }
 
 }
