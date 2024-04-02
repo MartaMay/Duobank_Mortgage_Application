@@ -4,7 +4,6 @@ Feature: Account sign up for Bank Mortgage Application
   I want to sign up for an account on the bank mortgage application
   So that I can start the process of applying for a mortgage.
 
-
   Background:
 
   Given User is on the login page of the bank mortgage application
@@ -29,7 +28,7 @@ Feature: Account sign up for Bank Mortgage Application
     And User clicks the Sign Up button
     Then User should see a Registration Successful message
     And User should be redirected to the Login page
-@my
+
   Scenario: Sign up with random data
     When User fills all required fields for First Name, Last Name, Email and Password with random data
     And User clicks the Sign Up button
@@ -42,6 +41,8 @@ Feature: Account sign up for Bank Mortgage Application
   Scenario: Navigate to Sign In page from Sign Up page
     When User clicks on the Already have an account? Sign in link
     Then User should be redirected to the Sign In page
+
+
 
 
 
