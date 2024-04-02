@@ -10,15 +10,15 @@ Feature: As a potential homebuyer,
   Background:
     Given User is logged in into the bank mortgage application
     And User navigates to the Mortgage page
-
+ @smoke
   Scenario: Checkbox Implementation for Realtor Question
     When User encounters the Are you working with a realtor? field
     Then User should see checkboxes with options Yes and No
-
+  @smoke
   Scenario: Enable Realtor Information
     When User selects Yes for the realtor question
     Then the Realtor Information field should be enabled, allowing user to enter the realtor's name and contact details
-
+  @smoke
   Scenario: Realtor Information Field Requirement
     Given User selects Yes for the realtor question
     When User tries to proceed to the next page
