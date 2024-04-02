@@ -1,22 +1,33 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import pages.LoginPage;
 import pages.MortgagePage;
+import utilities.ConfigReader;
 import utilities.Driver;
 
 public class PreapprovalStepDefs {
+
+    @Given("User is logged in into the bank mortgage application")
+    public void userIsLoggedInIntoTheBankMortgageApplication() {
+        Driver.getDriver().get(ConfigReader.getProperty("url"));
+        new LoginPage().login();
+    }
     @And("User navigates to the Mortgage page")
     public void userNavigatesToTheMortgagePage() {
-        new MortgagePage().clickMortgage();
+        new MortgagePage().getMortgage().click();
     }
 
     @When("User encounters the Are you working with a realtor? field")
     public void userEncountersTheAreYouWorkingWithARealtorField() {
-        Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//label[text()='Are you working with a realtor?']")).getText(), "Are you working with a realtor?");
+        Assert.assertEquals(Driver.getDriver().findElement(
+                By.xpath("//label[text()='Are you working with a realtor?']")).getText(),
+                "Are you working with a realtor?");
     }
 
     @Then("User should see checkboxes with options Yes and No")
@@ -35,4 +46,6 @@ public class PreapprovalStepDefs {
     public void theRealtorInformationFieldShouldBeEnabledAllowingUserToEnterTheRealtorSNameAndContactDetails() {
         Assert.assertEquals(Driver.getDriver().findElement(By.xpath("//input[@id='realtorinfo']")).getAttribute("required"), "required");
     }
+
+
 }
