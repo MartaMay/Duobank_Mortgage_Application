@@ -30,7 +30,8 @@ public class LoginPage {
     private List<WebElement> inputLinks;
 
     public void login(){
-        email.sendKeys(ConfigReader.getProperty("email"), Keys.TAB, ConfigReader.getProperty("password"));
+        email.sendKeys(ConfigReader.getProperty("email"), Keys.TAB, ConfigReader.getProperty("password"), Keys.ENTER);
+
     }
     public void login(String email, String password){
         this.email.sendKeys(email, Keys.TAB, password);

@@ -15,9 +15,6 @@ public class MortgagePage {
     @FindBy(linkText="Mortgage Application")
     private WebElement mortgage;
 
-    public WebElement getMortgage(){ return mortgage; }
-
-    public void clickMortgage(){ mortgage.click();}
 
 
 
