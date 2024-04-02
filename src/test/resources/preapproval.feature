@@ -6,11 +6,11 @@ Feature: As a potential homebuyer, I want to use the Preapproval Details page of
   percentage, loan amount, source of down payment, and additional
   available funds for closing costs or reserves.
 
-@mine
+@page
   Background:
     Given User is on the login page of the bank mortgage application
     And User navigates to the Mortgage page
-
+@first
   Scenario: Checkbox Implementation for Realtor Question
     When User encounters the Are you working with a realtor? field
     Then User should see checkboxes with options Yes and No
