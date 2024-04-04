@@ -1,4 +1,4 @@
-
+@REGRESSION
 Feature: Account sign up for Bank Mortgage Application
   As a potential customer,
   I want to sign up for an account on the bank mortgage application

@@ -38,6 +38,7 @@ public class LogInStepDefs {
 
     @And("User clicks on Sing In Button")
     public void userClicksOnSingInButton() {
+
         new LoginPage().getSingInButton().click();
     }
 
@@ -71,10 +72,10 @@ public class LogInStepDefs {
 
     @Then("The password field masks entered characters, showing dots instead to maintain privacy")
     public void thePasswordFieldMasksEnteredCharactersShowingDotsInsteadToMaintainPrivacy() {
-        Assert.assertEquals("password", Driver.getDriver().findElement(By.id("password")).getAttribute("type"));
+        Assert.assertEquals("password", Driver.getDriver().findElement(By.id("exampleInputPassword1")).getAttribute("type"));
     }
 
-    @When("User enters valid email and password")
+    @When("User enters valid email and password and clicks Sign In")
     public void userEnterstValidEmailAndPassword() {
         new LoginPage().login();
     }
