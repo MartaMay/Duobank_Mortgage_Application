@@ -8,7 +8,7 @@ Feature: As a potential homebuyer,
   available funds for closing costs or reserves.
 
   Background:
-    Given User is logged in into the bank mortgage application
+    Given User is logged into the bank mortgage application
     And User navigates to the Mortgage page
 
   Scenario: Checkbox Implementation for Realtor Question
@@ -23,3 +23,10 @@ Feature: As a potential homebuyer,
     Given User selects Yes for the realtor question
     When User tries to proceed to the next page
     Then the Realtor Information field should be required before moving forward
+
+  Scenario: Calculating Loan Amount
+    When User selects No for the realtor question
+    And User selects Construction from the dropbox as a reason for the loan
+    And User enters the estimated purchase price 250000 $ dollars
+    And User enters down payment amount 50000 dollars
+    Then the Loan Amount is calculated automatically

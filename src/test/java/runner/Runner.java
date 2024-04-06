@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
                 "pretty",
                 "html:target/cucumber-report/report.html"
         }
-//        ,publish = true
+        ,publish = true
 //      ,dryRun = true
 )
 @RunWith(Cucumber.class)
