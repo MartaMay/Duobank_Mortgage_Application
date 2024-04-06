@@ -30,6 +30,9 @@ public class MortgagePage {
     @FindBy(id="realtorinfo")
     private WebElement realtorInfo;
 
+    @FindBy(name="purpose_loan")
+    private WebElement loanPurpose;
+
     @FindBy(name="est_purchase_price")
     private WebElement estPurchasePrice;
 
