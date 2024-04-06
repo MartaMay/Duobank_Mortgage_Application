@@ -12,10 +12,11 @@ import pages.LoginPage;
 import pages.MortgagePage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.SeleniumUtils;
 
 public class PreapprovalStepDefs {
 
-    @Given("User is logged into the bank mortgage application")
+    @Given("User is logged into the bank mortgage application.")
     public void userIsLoggedInIntoTheBankMortgageApplication() {
         Driver.getDriver().get(ConfigReader.getProperty("url"));
         new LoginPage().login();

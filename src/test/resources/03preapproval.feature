@@ -8,7 +8,7 @@ Feature: As a potential homebuyer,
   available funds for closing costs or reserves.
 
   Background:
-    Given User is logged into the bank mortgage application
+    Given User is logged into the bank mortgage application.
     And User navigates to the Mortgage page
 
   Scenario: Checkbox Implementation for Realtor Question

@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import utilities.Driver;
+import utilities.SeleniumUtils;
 
 @Data
 public class PersonalInfoPage {
@@ -110,5 +111,22 @@ public class PersonalInfoPage {
         new Select(c_marital).selectByVisibleText("Single");
         c_cell.sendKeys(cell);
     }
+
+    public void simplePersonalInfoEntry() {
+        if (!new PersonalInfoPage().getCoborrowerNo().isSelected()) {
+            SeleniumUtils.jsClick(new PersonalInfoPage().getCoborrowerNo());
+        }
+        b_FirstName.sendKeys("John");
+        b_LastName.sendKeys("Doe");
+        new Select(b_Suffix).selectByVisibleText("Jr.");
+        b_Email.sendKeys("john.doe@email.com");
+        b_dob.sendKeys("01/01/1980");
+        b_ssn.sendKeys("123-45-6789");
+        new Select(b_marital).selectByVisibleText("Married");
+        b_cell.sendKeys("123-456-7890");
+        getPrivacypolicy().click();
+        getNextButton().click();
+    }
+
 
 }
