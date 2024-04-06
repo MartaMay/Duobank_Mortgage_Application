@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -23,8 +24,8 @@ public class PersonalInfoStepDefs {
     }
     @Given("User is on the Personal Information page")
     public void navigates_to_the_personal_information_page() throws InterruptedException {
-        Thread.sleep(1000);
-        Assert.assertNotEquals("Personal Information",
+        Thread.sleep(2000);
+        Assert.assertEquals("Personal Information",
                 Driver.getDriver().findElement(By.xpath("//h6[text()='Personal Information']")).getText());
     }
 
@@ -37,8 +38,10 @@ public class PersonalInfoStepDefs {
     @Then("There should be checkboxes with options \"Yes\" and \"No\" for the user to select.")
     public void thereShouldBeCheckboxesWithOptionsAndForTheUserToSelect() {
 
-     Assert.assertTrue(new PersonalInfoPage().getCoborrowerYes().isDisplayed());
-     Assert.assertTrue(new PersonalInfoPage().getCoborrowerNo().isDisplayed());
+        Assert.assertEquals("Yes", Driver.getDriver().findElement(By.xpath("//label[@for='coborrower1']")).getText());
+        Assert.assertEquals("No", Driver.getDriver().findElement(By.xpath("//label[@for='coborrower2']")).getText());
+//     Assert.assertTrue(new PersonalInfoPage().getCoborrowerYes().isDisplayed());
+//     Assert.assertTrue(new PersonalInfoPage().getCoborrowerNo().isDisplayed());
 
     }
 
@@ -61,12 +64,12 @@ public class PersonalInfoStepDefs {
 
     @Then("The first name, last name, email, date of birth, SSN, marital status, and cell phone fields should be marked as required and not allow the user to proceed without completing them.")
     public void theFirstNameLastNameEmailDateOfBirthSSNMaritalStatusAndCellPhoneFieldsShouldBeMarkedAsRequiredAndNotAllowTheUserToProceedWithoutCompletingThem() {
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_firstName-error")).isDisplayed());
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_lastName-error")).isDisplayed());
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_email-error")).isDisplayed());
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_ssn-error")).isDisplayed());
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_marital-error")).isDisplayed());
-    Assert.assertTrue(Driver.getDriver().findElement(By.id("b_cell-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_firstName-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_lastName-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_email-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_ssn-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_marital-error")).isDisplayed());
+        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_cell-error")).isDisplayed());
     }
 
 
@@ -90,7 +93,7 @@ public class PersonalInfoStepDefs {
 
     @And("User has read and accepted the terms of the Privacy Policy")
     public void userShouldSeeACheckboxWithTheStatementIWeHaveReadAndAcceptedTheTermsOfThePrivacyPolicyThatMustBeChecked() {
-       new PersonalInfoPage().getPrivacypolicy().click();
+        new PersonalInfoPage().getPrivacypolicy().click();
 
     }
 
@@ -108,7 +111,7 @@ public class PersonalInfoStepDefs {
         new PersonalInfoPage().getNextButton().click();
     }
 
-    @Then("the form should be submitted successfully and User redirected to the \"Current Monthly Housing Expenses\" page")
+    @Then("User is on the \"Current Monthly Housing Expenses\" page")
     public void the_form_should_be_submitted_successfully() throws InterruptedException {
         Thread.sleep(1000);
         Assert.assertEquals("Current Monthly Housing Expenses",
@@ -124,4 +127,8 @@ public class PersonalInfoStepDefs {
 
     }
 
+    @When("User fills out Personal Information page")
+    public void userEntersValidPersonalInformation() {
+        new PersonalInfoPage().simplePersonalInfoEntry();
+    }
 }
