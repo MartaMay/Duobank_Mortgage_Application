@@ -29,8 +29,6 @@ Feature:
     And User enters negative value "-2500" into the "Monthly Mortgage Payment" field
     And User should see an error message Please enter a value greater than or equal to 0 for Monthly Mortgage Payment
 
-  Scenario: Fill out Required Fields
-    When User has selected "Rent" on the Expenses page
-    And User enters "1750" into the "Monthly Rental Payment" field
-    Then User clicks on "Next" button
-    And User should be redirected to the Employment and Income Page
+  Scenario: Fill out Current Monthly Housing Expenses
+    When User fills out required fields for Current Monthly Housing Expenses
+    Then User should be redirected to the Employment and Income Page

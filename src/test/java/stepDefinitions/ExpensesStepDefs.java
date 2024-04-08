@@ -90,5 +90,16 @@ public class ExpensesStepDefs {
         Assert.assertTrue(Driver.getDriver().findElement(By.id("firtmortagagetotalpayment-error")).isDisplayed());
 
         }
+
+    @When("User fills out required fields for Current Monthly Housing Expenses")
+    public void userFillsOutRequiredFieldsForCurrentMonthlyHousingExpenses() {
+        if (!new ExpensesPage().getRentCheckbox().isSelected()){
+            new ExpensesPage().getRentCheckbox().click();
+        }
+        new ExpensesPage().getMonthlyRentalPayment().sendKeys("1750");
+        new ExpensesPage().getNextButton().click();
+
+
+    }
 }
 
