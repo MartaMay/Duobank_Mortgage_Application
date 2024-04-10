@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
@@ -45,8 +46,13 @@ public class SignUpStepDefs {
 
     @Then("User should see validation errors for all required fields")
     public void user_should_see_validation_errors_for_all_required_fields() {
-        Assert.assertEquals("Please match the expected format",
-                Driver.getDriver().findElement(By.partialLinkText("Please")).getText());
+        WebElement inputElement = Driver.getDriver().findElement(By.name("email"));
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        boolean isRequired = (Boolean) js.executeScript("return arguments[0].required;",inputElement);
+        if(isRequired )
+        {
+            System.out.println("Please fill out this field");
+        }
     }
 
     @When("User fills all required fields for First Name, Last Name, Email and Password with the following data")

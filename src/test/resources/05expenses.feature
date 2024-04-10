@@ -1,4 +1,4 @@
-@my
+@REGRESSION
 Feature:
   As a potential homebuyer,
   I want to use the Expenses page of my bank's mortgage application
@@ -10,7 +10,7 @@ Feature:
     Given User is logged into the bank mortgage application.
     And User fills out mortgage application
     And User fills out Personal Information page
-    And User is on the "Current Monthly Housing Expenses" page
+    And User is on the "Expenses" page
 
   Scenario: Verify Checkbox Functionality for Housing Status
 

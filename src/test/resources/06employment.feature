@@ -1,6 +1,5 @@
-
-  Feature:
-    As a user applying for a mortgage loan,
+@REGRESSION
+  Feature:  As a user applying for a mortgage loan,
     I want to provide my employment and income details to the bank,
     So that they can evaluate my eligibility for a loan.
 
@@ -36,10 +35,17 @@
         | state        | New York (NY) | Massachusetts (MA) | Florida (FL) |
         | startDate    | 07/01/2020    | 11/05/2015         | 02/17/2013   |
         | endDate      | 01/01/2022    | 07/03/2020         | 10/27/2015   |
+@M
+    Scenario: Clear employment information
+      When User fills out current Employment Information Section with following data:
+        | BrightSide Corp     | Manager   | Boston   | Massachusetts (MA)    | 02/01/2022 |
+      And User clicks the Clear button
+      Then A warning popup should be displayed confirming the action
+      And Clicking Yes! on the popup should clear only the information in that section
 
 
     Scenario Outline: Validate Gross Monthly Employment Income
-      When User enters following income information
+      When User enters income information
 
     | GROSS_MONTHLY_INCOME | MONTHLY_OVERTIME | MONTHLY_BONUSES | MONTHLY_COMMISSIONS | MONTHLY_DIVIDENDS_INTEREST | TOTAL_MONTHLY_INCOME |
     | <gross>              | <overtime>       | <bonuses>       | <commissions>       | <dividends_interest>       | <total_monthly_income> |
@@ -48,4 +54,9 @@
       Examples:
         | gross  | overtime | bonuses | commissions | dividends_interest | total_monthly_income |
         | 5000.00| 300.00   | 250.00  | 150.00      | 100.00             | 5800.00              |
+
+
+    Scenario: Validate Additional Gross Monthly Income section
+      Then Section should contain three sets of INCOME SOURCE dropdowns
+      And INCOME SOURCE dropdown should include options like Alimony, Child Support and Social Security, Disability Income
 

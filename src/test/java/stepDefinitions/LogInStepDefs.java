@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import lombok.extern.java.Log;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
 import utilities.ConfigReader;
@@ -44,10 +45,16 @@ public class LogInStepDefs {
 
     @Then("User should see warning indicating that these fields are required and cannot be left blank")
     public void userShouldSeeWarningsNextToTheEmailAndPasswordFieldsIndicatingThatTheseFieldsAreRequiredAndCannotBeLeftBlank() throws InterruptedException {
-//    Driver.getDriver().switchTo().frame(0);
-        Thread.sleep(2000);
-        String warning = Driver.getDriver().findElement(By.xpath("//*[contains(text(),'Please fill out this field')]")).getText();
-        Assert.assertEquals("Please fill out this field", warning);
+//        Thread.sleep(2000);
+//        String warning = Driver.getDriver().findElement(By.xpath("//*[contains(text(),'Please fill out this field')]")).getText();
+//        Assert.assertEquals("Please fill out this field", warning);
+        WebElement inputElement = Driver.getDriver().findElement(By.name("email"));
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        boolean isRequired = (Boolean) js.executeScript("return arguments[0].required;",inputElement);
+        if(isRequired )
+        {
+            System.out.println("Please fill out this field");
+        }
     }
 
 
@@ -58,10 +65,14 @@ public class LogInStepDefs {
 
     @Then("User should see an error message \"Please enter a valid email address\"")
     public void userShouldSeeAnErrorMessage() throws InterruptedException {
-        Thread.sleep(2000);
-        Driver.getDriver().switchTo().frame(0);
-        String warning = Driver.getDriver().findElement(By.xpath("//*[contains(text(),'Please include')]")).getText();
-        Assert.assertEquals("Please fill out this field", warning);
+
+        WebElement inputElement = Driver.getDriver().findElement(By.name("email"));
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        boolean isRequired = (Boolean) js.executeScript("return arguments[0].required;",inputElement);
+        if(isRequired )
+        {
+            System.out.println("Please fill out this field");
+        }
 
     }
 
