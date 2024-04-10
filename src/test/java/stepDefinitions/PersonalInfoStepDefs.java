@@ -111,11 +111,11 @@ public class PersonalInfoStepDefs {
         new PersonalInfoPage().getNextButton().click();
     }
 
-    @Then("User is on the \"Current Monthly Housing Expenses\" page")
+    @Then("User is on the \"Expenses\" page")
     public void the_form_should_be_submitted_successfully() throws InterruptedException {
         Thread.sleep(1000);
-        Assert.assertEquals("Current Monthly Housing Expenses",
-                Driver.getDriver().findElement(By.xpath("//h6[text()='Current Monthly Housing Expenses']")).getText());
+        Assert.assertEquals("EXPENSES",
+                Driver.getDriver().findElement(By.xpath("//span[text()='Expenses']")).getText());
     }
 
     @When("User enters co-borrower's information:")

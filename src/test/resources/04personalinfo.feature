@@ -34,7 +34,7 @@ Feature: As a potential homebuyer,
       | FirstName   | LastName   | Email   | DOB   | SSN   | CellPhone    |
       | <FirstName> | <LastName> | <Email> | <DOB> | <SSN> | <CellPhone>  |
     Then User clicks on "Next" button
-    Then User is on the "Current Monthly Housing Expenses" page
+    Then User is on the "Expenses" page
     Examples:
       | FirstName | LastName | Email              | DOB        | SSN         | CellPhone    |
       | John      | Doe      | john.doe@email.com | 01/01/1980 | 123-45-6789 | 123-456-7890 |
@@ -49,7 +49,7 @@ Feature: As a potential homebuyer,
       | <CoFirstName> | <CoLastName> | <CoEmail> | <CoDOB> | <CoSSN> | <CoCellPhone> |
     And User has read and accepted the terms of the Privacy Policy
     Then User clicks on "Next" button
-    Then User is on the "Current Monthly Housing Expenses" page
+    Then User is on the "Expenses" page
 
     Examples:
       | CoFirstName | CoLastName | CoEmail               | CoDOB      | CoSSN       | CoCellPhone  |
@@ -57,4 +57,4 @@ Feature: As a potential homebuyer,
 
   Scenario: User fills out Personal Information page
     When User fills out Personal Information page
-    Then User is on the "Current Monthly Housing Expenses" page
+    Then User is on the "Expenses" page

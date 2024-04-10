@@ -13,7 +13,7 @@
     Scenario: Verify login input fields
       Then User should see that sign in page includes two input fields, for email and password
 
-
+    @M
     Scenario: Required Input Fields
        When User doesn't enter any data in the email and password fields
        And User clicks on Sing In Button

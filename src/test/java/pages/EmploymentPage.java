@@ -56,6 +56,18 @@ public class EmploymentPage {
     @FindBy(className="borrowertotalmonthlyincome")
     private WebElement totalMonthlyIncome;
 
+    @FindBy(id="incomesource1")
+    private WebElement incomesource1;
+
+    @FindBy(id="amount1")
+    private WebElement amount1;
+
+    @FindBy(name="income_source[]")
+    private List<WebElement> incomeSources;
+
+    @FindBy(id="clear1")
+    private WebElement clear1;
+
     @FindBy(xpath="//a[text()='Next']")
     private WebElement nextButton;
 
@@ -84,10 +96,10 @@ public class EmploymentPage {
     }
     public void monthlyIncome(String gross, String overtime, String bonuses, String commission, String dividents){
         grossMonthlyIncome.sendKeys(gross);
-        getMonthlyOvertime().sendKeys(overtime);
-        getMonthlyBonuses().sendKeys(bonuses);
-        getMonthlyCommission().sendKeys(commission);
-        getMonthlyDividents().sendKeys(dividents);
+        monthlyOvertime.sendKeys(overtime);
+        monthlyBonuses.sendKeys(bonuses);
+        monthlyCommission.sendKeys(commission);
+        monthlyDividents.sendKeys(dividents);
     }
 
 

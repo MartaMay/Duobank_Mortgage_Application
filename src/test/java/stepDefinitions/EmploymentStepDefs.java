@@ -1,11 +1,13 @@
 package stepDefinitions;
 
 import com.github.javafaker.Faker;
+import io.cucumber.java.cs.Ale;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -13,6 +15,7 @@ import pages.EmploymentPage;
 import utilities.Driver;
 import utilities.SeleniumUtils;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,11 +74,13 @@ public class EmploymentStepDefs {
 
         }
     }
-
+    List<List<String>> currentEmploymentInfo;
     @Then("User fills out current Employment Information Section with following data:")
     public void userFillsOutCurrentEmploymentInformationSectionWithFollowingData(List<List<String>> currentEmploymentInfo) {
-        new EmploymentPage().currentEmploymentInfo(currentEmploymentInfo.get(0).get(0), currentEmploymentInfo.get(0).get(1),
-                currentEmploymentInfo.get(0).get(2), currentEmploymentInfo.get(0).get(3), currentEmploymentInfo.get(0).get(4));
+        this.currentEmploymentInfo=currentEmploymentInfo;
+        new EmploymentPage().currentEmploymentInfo(currentEmploymentInfo.get(0).get(0),
+                currentEmploymentInfo.get(0).get(1),currentEmploymentInfo.get(0).get(2),
+                currentEmploymentInfo.get(0).get(3), currentEmploymentInfo.get(0).get(4));
     }
 
     @And("User clicks Add Another Employer")
@@ -97,11 +102,26 @@ public class EmploymentStepDefs {
             index++;
         }
     }
+    @When("User clicks the Clear button")
+    public void user_clicks_the_button() {
+     new EmploymentPage().getClear1().click();
+    }
+    @Then("A warning popup should be displayed confirming the action")
+    public void a_warning_popup_should_be_displayed_confirming_the_action() {
+
+        Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//h2[text()='Clear Employer1  Data?']")).isDisplayed());
+    }
+    @Then("Clicking Yes! on the popup should clear only the information in that section")
+    public void clicking_on_the_popup_should_clear_only_the_information_in_that_section() {
+        Driver.getDriver().findElement(By.xpath("//button[text()='Yes!']")).click();
+     Assert.assertTrue(Driver.getDriver().findElement(By.xpath("//div[@id='employer1']//input[@type='text']")).getText().isEmpty());
+
+    }
 
 
     List<Map<String, String>> incomeInfo;
 
-    @When("User enters following income information")
+    @When("User enters income information")
     public void user_enters_following_income_information(List<Map<String, String>> incomeInfo) {
         this.incomeInfo = incomeInfo;
         System.out.println(incomeInfo);
@@ -121,6 +141,30 @@ public class EmploymentStepDefs {
         String total = new EmploymentPage().getTotalMonthlyIncome().getText();
         String actual = incomeInfo.get(0).get("TOTAL_MONTHLY_INCOME");
         Assert.assertEquals(actual.replace(".00", ""), total.replace(" $", ""));
+    }
+
+      @Then("Section should contain three sets of INCOME SOURCE dropdowns")
+    public void section_should_contain_three_sets_of_income_source_dropdowns_and_amount_fields() throws InterruptedException {
+
+        List<WebElement> dropdowns = Driver.getDriver().findElements(By.cssSelector("div[class='col-md-4 belong']"));
+        Assert.assertEquals(3, dropdowns.size());
+
+    }
+    @Then("INCOME SOURCE dropdown should include options like Alimony, Child Support and Social Security, Disability Income")
+    public void income_source_dropdown_should_include_options_like_alimony_child_support_and_social_security_disability_income() {
+       new EmploymentPage().getIncomesource1().click();
+        Select select = new Select(new EmploymentPage().getIncomesource1());
+        List <WebElement> incomeSources = select.getOptions();
+        List<String> incomeString = new ArrayList<>();
+        for (WebElement income : incomeSources) {
+            if (!income.getText().equals("Select One")) {
+                incomeString.add(income.getAttribute("value"));
+            }
+        }
+        List<String> actual = Arrays.asList( "Alimony/Child Support", "Social Security/Disability Income",
+                "Unemployment Benefits", "Interest and Dividends", "VA Compensation", "Royalty Payments", "Other Types of Income");
+        Assert.assertEquals(actual, incomeString);
+
     }
 
 }
