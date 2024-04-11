@@ -20,14 +20,14 @@ Feature: As a potential homebuyer,
   Scenario: Required Fields Validation
     When User clicks on "Next" button
     Then The first name, last name, email, date of birth, SSN, marital status, and cell phone fields should be marked as required and not allow the user to proceed without completing them.
-
+@M
   Scenario: Privacy Policy Acknowledgment
     When User clicks on Privacy Policy section
     And User is redirected to Privacy terms window
     When User is navigating back
     Then User is on the Personal Information page
     And User has read and accepted the terms of the Privacy Policy
-  @test
+
   Scenario Outline: Entering personal information for Borrower only
     When User selects "No" for applying with a co-borrower
     And User enters personal information:
