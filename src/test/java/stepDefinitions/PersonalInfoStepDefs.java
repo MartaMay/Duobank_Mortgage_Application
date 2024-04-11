@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import pages.MortgagePage;
@@ -64,12 +65,16 @@ public class PersonalInfoStepDefs {
 
     @Then("The first name, last name, email, date of birth, SSN, marital status, and cell phone fields should be marked as required and not allow the user to proceed without completing them.")
     public void theFirstNameLastNameEmailDateOfBirthSSNMaritalStatusAndCellPhoneFieldsShouldBeMarkedAsRequiredAndNotAllowTheUserToProceedWithoutCompletingThem() {
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_firstName-error")).isDisplayed());
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_lastName-error")).isDisplayed());
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_email-error")).isDisplayed());
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_ssn-error")).isDisplayed());
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_marital-error")).isDisplayed());
-        Assert.assertTrue(Driver.getDriver().findElement(By.id("b_cell-error")).isDisplayed());
+
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_firstName-error")).isDisplayed()).isTrue();
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_lastName-error")).isDisplayed()).isTrue();
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_email-error")).isDisplayed()).isTrue();
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_ssn-error")).isDisplayed()).isTrue();
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_marital-error")).isDisplayed()).isTrue();
+        softAssertions.assertThat(Driver.getDriver().findElement(By.id("b_cell-error")).isDisplayed()).isTrue();
+        softAssertions.assertAll();
     }
 
 

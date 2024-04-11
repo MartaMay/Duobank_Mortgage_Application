@@ -167,4 +167,17 @@ public class EmploymentStepDefs {
 
     }
 
+    @When("Not all required fields are filled in")
+    public void notAllRequiredFieldsAreFilledIn() {
+        new EmploymentPage().getEmployername1().sendKeys("");
+
+
+
+    }
+
+    @Then("An error message should indicate the required fields that need to be filled in")
+    public void anErrorMessageShouldIndicateTheRequiredFieldsThatNeedToBeFilledIn() throws InterruptedException {
+        Thread.sleep(1000);
+        Assert.assertEquals("THIS FIELD IS REQUIRED.", Driver.getDriver().findElement(By.xpath("//label[@id='employername1-error']")).getText());
+    }
 }
