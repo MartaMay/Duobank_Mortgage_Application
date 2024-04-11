@@ -20,7 +20,7 @@ Feature: As a potential homebuyer,
   Scenario: Required Fields Validation
     When User clicks on "Next" button
     Then The first name, last name, email, date of birth, SSN, marital status, and cell phone fields should be marked as required and not allow the user to proceed without completing them.
-@M
+
   Scenario: Privacy Policy Acknowledgment
     When User clicks on Privacy Policy section
     And User is redirected to Privacy terms window

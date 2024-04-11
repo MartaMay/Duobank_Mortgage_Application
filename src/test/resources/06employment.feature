@@ -35,7 +35,7 @@
         | state        | New York (NY) | Massachusetts (MA) | Florida (FL) |
         | startDate    | 07/01/2020    | 11/05/2015         | 02/17/2013   |
         | endDate      | 01/01/2022    | 07/03/2020         | 10/27/2015   |
-
+@M
     Scenario: Clear employment information
       When User fills out current Employment Information Section with following data:
         | BrightSide Corp     | Manager   | Boston   | Massachusetts (MA)    | 02/01/2022 |
@@ -43,7 +43,7 @@
       Then A warning popup should be displayed confirming the action
       And Clicking Yes! on the popup should clear only the information in that section
 
-@M
+
     Scenario Outline: Validate Gross Monthly Employment Income
       When User enters income information
 
@@ -59,7 +59,7 @@
     Scenario: Validate Additional Gross Monthly Income section
       Then Section should contain three sets of INCOME SOURCE dropdowns
       And INCOME SOURCE dropdown should include options like Alimony, Child Support and Social Security, Disability Income
-@M
+
     Scenario: Incomplete required fields
       When Not all required fields are filled in
       And User clicks on "Next" button

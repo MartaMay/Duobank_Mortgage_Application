@@ -104,7 +104,7 @@ public class EmploymentStepDefs {
     }
     @When("User clicks the Clear button")
     public void user_clicks_the_button() {
-     new EmploymentPage().getClear1().click();
+     SeleniumUtils.jsClick(new EmploymentPage().getClear1());
     }
     @Then("A warning popup should be displayed confirming the action")
     public void a_warning_popup_should_be_displayed_confirming_the_action() {
