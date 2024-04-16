@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions (
 
-        tags = "@REGRESSION and not @original",//@REGRESSION and not @original
+        tags = "@db_only",//@REGRESSION and not @original
         features = "src/test/resources",
         glue = "stepDefinitions",
         plugin = {
@@ -20,3 +20,6 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 public class Runner {
 }
+
+//mvn test -D parallel=methods -D useUnlimitedThreads=true
+//mvn test -D browser=chrome-headless
