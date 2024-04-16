@@ -55,7 +55,6 @@
         | gross  | overtime | bonuses | commissions | dividends_interest | total_monthly_income |
         | 5000.00| 300.00   | 250.00  | 150.00      | 100.00             | 5800.00              |
 
-
     Scenario: Validate Additional Gross Monthly Income section
       Then Section should contain three sets of INCOME SOURCE dropdowns
       And INCOME SOURCE dropdown should include options like Alimony, Child Support and Social Security, Disability Income
