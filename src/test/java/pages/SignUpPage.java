@@ -2,6 +2,7 @@ package pages;
 
 import com.github.javafaker.Faker;
 import lombok.Data;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,7 +55,7 @@ public class SignUpPage {
         firstName.sendKeys(faker.name().firstName());
         lastName.sendKeys(faker.name().lastName());
         this.email.sendKeys(faker.internet().emailAddress());
-        password.sendKeys("paSSword321");
+        password.sendKeys(DigestUtils.md5Hex(faker.internet().password()));   //("paSSword321");
     }
 
 }
