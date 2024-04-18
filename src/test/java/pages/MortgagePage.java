@@ -24,6 +24,12 @@ public class MortgagePage {
     @FindBy(xpath="//label[@for='realtor2']")
     private WebElement realtorNo;
 
+    @FindBy(xpath="//label[@for='loanofficer2']")
+    private WebElement loanofficerNo;
+
+    @FindBy(xpath="//label[@for='loanofficer1']")
+    private WebElement loanofficerYes;
+
     @FindBy(xpath="/input[@id='realtor2'] ")
     private WebElement checkboxNo;
 

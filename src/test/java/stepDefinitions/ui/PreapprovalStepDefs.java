@@ -22,7 +22,8 @@ public class PreapprovalStepDefs {
         new LoginPage().login();
     }
     @And("User navigates to the Mortgage page")
-    public void userNavigatesToTheMortgagePage() {
+    public void userNavigatesToTheMortgagePage() throws InterruptedException {
+        Thread.sleep(1000);
         new MortgagePage().getMortgage().click();
     }
 
