@@ -19,12 +19,12 @@ public class Hooks {
         Driver.getDriver().manage().window().maximize();
     }
 
-    @Before ("@db_only")
+    @Before ("@d or @db_only")
     public void db(){
         DBUtils.createConnection();
     }
 
-    @After ("@db_only")
+    @After ("@d or @db_only")
     public void db2(){
         DBUtils.close();
     }
