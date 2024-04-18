@@ -12,6 +12,7 @@ import pages.MortgagePage;
 import stepDefinitions.SharedData;
 import utilities.DBUtils;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
@@ -131,6 +132,32 @@ public class PreaprovalDetailsDBStepDefs {
 
         List<String> actualColumns = new ArrayList<>(map.keySet());
         Assert.assertEquals(expectedColumns, actualColumns);
+    }
+
+    @Given("User with id = {int} exists in the {string} table db")
+    public void userWithIdExistsInTheTableDb(int id, String table) {
+        List<Map<String, Object>> listOfMaps = DBUtils.getQueryResultListOfMaps(String.format("select * from %s where id = %d",
+                table, id));
+        Assert.assertEquals(listOfMaps.get(0).get("id"), id);
+    }
+
+    @When("I enter non-alphabetical characters in the first, middle, and last name fields")
+    public void i_enter_non_alphabetical_characters_in_the_first_middle_and_last_name_fields() throws SQLException {
+       DBUtils.executeUpdate("UPDATE tbl_mortagage SET b_firstName = '1$3',\n" +
+               " b_middleName=\"4%6\", b_lastName=\"7!9\" WHERE id = 1;");
+    }
+    @Then("the entry should be rejected")
+    public void the_entry_should_be_rejected() {
+        List<Map<String, Object>> listOfMaps = DBUtils.getQueryResultListOfMaps("select*from tbl_mortagage where id = 1");
+
+       String name = String.valueOf(listOfMaps.get(0).get("b_firstName"));
+        if (name.matches("^[A-Za-z]+$")) {
+            System.out.println("The name contains only letters.");
+        } else {
+            System.out.println("The name contains invalid characters.");
+        }
+
+        Assert.assertTrue("The name contains invalid characters.", name.matches("^[A-Za-z]+$"));
     }
 }
 
