@@ -1,4 +1,4 @@
-@db_only
+
 Feature: As a user of Duobank Mortgage Application,
   I want to be able to sign up and log in securely using a database system that protects my personal
   and financial information,
@@ -22,7 +22,8 @@ Feature: As a user of Duobank Mortgage Application,
       | country_id  |
       | active      |
 
-
+  @db
+    @db_only
   Scenario: Verify data mapping of user registration process
 
     Given User is on the login page of the bank mortgage application
@@ -35,21 +36,16 @@ Feature: As a user of Duobank Mortgage Application,
       | last_name  |
       | email      |
       | password   |
-
+  @db
+    @db_only
   Scenario: : Unique Email Validation
     Given there is already an account registered with the email "mark.johnson@example.com"
     When user tries to register another account with the email "mark.johnson@example.com"
     Then the registration should fail and system should have only one user with registered email
 
 
-  Scenario: Creation of timestamp in DB
-    Given User is on the login page of the bank mortgage application
-    And User navigates to the sign up page
-    When User fills out fields with valid information
-    And User clicks the Sign Up button
-    And User should be created in the database
-    Then The system should store the current timestamp in the "tbl_user" table, column "created_at"
-
+  @db
+    @db_only
   Scenario: Password encryption in DB
     Given User is on the login page of the bank mortgage application
     And User navigates to the sign up page

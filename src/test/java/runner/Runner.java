@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions (
 
-        tags = "@db_only",//@REGRESSION and not @original
+        tags = "@db or @db_only",
         features = "src/test/resources",
         glue = "stepDefinitions",
         plugin = {

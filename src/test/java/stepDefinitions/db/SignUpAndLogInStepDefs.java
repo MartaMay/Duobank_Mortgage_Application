@@ -27,7 +27,6 @@ public class SignUpAndLogInStepDefs {
         this.sharedData = sharedData;
     }
 
-    //String email;
     SharedData sharedData;
 
 
@@ -35,6 +34,8 @@ public class SignUpAndLogInStepDefs {
     public void table_should_have_the_following_columns_with_appropriate_types(String tableName, List<String> columnNames) {
 
         List<String> actualColumnNames = DBUtils.getColumnNames(String.format("SELECT * from %s", tableName));
+        System.out.println(columnNames);
+        System.out.println(actualColumnNames);
         Assert.assertEquals(columnNames, actualColumnNames);
 
     }
