@@ -1,6 +1,5 @@
 package stepDefinitions.db;
 
-import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,7 +7,6 @@ import io.cucumber.java.en.When;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import pages.LoginPage;
-import pages.MortgagePage;
 import stepDefinitions.SharedData;
 import utilities.DBUtils;
 
@@ -17,9 +15,9 @@ import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class PreaprovalDetailsDBStepDefs {
+public class PersonalInfoDetailsDBStepDefs {
 
-    public PreaprovalDetailsDBStepDefs(SharedData sharedData) {
+    public PersonalInfoDetailsDBStepDefs(SharedData sharedData) {
         this.sharedData = sharedData;
     }
 
@@ -79,7 +77,7 @@ public class PreaprovalDetailsDBStepDefs {
 
         List<Map<String, Object>> queryResultListOfMaps1 = DBUtils.getQueryResultListOfMaps("  SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS" +
                 " WHERE TABLE_NAME = 'tbl_mortagage' AND COLUMN_NAME IN" +
-                " ('est_purchase_price', 'down_payment','down_payment_percent', 'total_loan_amount', 'add_fund_available' );\n");
+                " ('est_purchase_price', 'down_payment','down_payment_percent', 'total_loan_amount', 'add_fund_available' )\n");
 
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(queryResultListOfMaps1.get(0).get("DATA_TYPE")).isEqualTo("int");
