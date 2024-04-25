@@ -1,6 +1,7 @@
 package stepDefinitions.api;
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.Assert;
@@ -9,6 +10,8 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -65,6 +68,26 @@ public class GetUsers {
 
     }
     @Test
+    public void getUsersArray(){
+
+        given().
+                header("accept", "application/json").
+                queryParam("api_key", "c8a912d7d1c5a5a99c508f865b5eaae14a5b484f5bfe2d8f48c40e46289b47f3").
+                when().
+                log().all().
+                get("/users").
+                then().
+                log().all().
+                statusCode(200).
+                header("content-type", "application/json").
+                body("", hasSize(greaterThan(0))).
+                body("size()", greaterThan(0)).
+                body("[0]", allOf(hasKey("id"), hasKey("email"), hasKey("password"), hasKey("first_name"), hasKey("last_name"),
+                        hasKey("phone"), hasKey("image"), hasKey("type"), hasKey("created_at"), hasKey("modified_at"), hasKey("zone_id"),
+                        hasKey("church_id"), hasKey("country_id"), hasKey("active")));
+
+    }
+    @Test
     public void getUsersAllFields(){
 
         given().
@@ -101,7 +124,7 @@ public class GetUsers {
                 queryParam("api_key", "c8a912d7d1c5a5a99c508f865b5eaae14a5b484f5bfe2d8f48c40e46289b47f3").
                 when().
                 log().all().
-                get("/users").
+                get("/sers").
                 then().
                 log().all().
                 statusCode(200);
@@ -135,8 +158,7 @@ public class GetUsers {
                 then().
                 log().all().
                 statusCode(200).
-//                body("password", is(empty()));// "message": "Invalid request method"
-                body(not(containsString("password")));
+                body("", not(hasItem("password")));
     }
 
     @Test
@@ -159,25 +181,26 @@ public class GetUsers {
 
         int limit = 10;
 
-        Integer response = given().
+        JsonPath jsonPath = given().
                 header("accept", "application/json").
                 queryParam("api_key", "c8a912d7d1c5a5a99c508f865b5eaae14a5b484f5bfe2d8f48c40e46289b47f3").
                 queryParam("limit", limit).
-        when().
+                when().
                 log().all().
                 get("/users").
                 then().
                 log().all().
-                statusCode(200).extract().path("size()");
+                statusCode(200).extract().jsonPath();
 
-        Assert.assertEquals(response, limit);
+        List<Map<String, Object>> jsonPathList = jsonPath.getList("");
+        Assert.assertEquals(jsonPathList.size(), limit);
 
     }
 
     @Test
     public void getUsersXTotalCount(){
 
-       given().
+      given().
                 header("accept", "application/json").
                 queryParam("api_key", "c8a912d7d1c5a5a99c508f865b5eaae14a5b484f5bfe2d8f48c40e46289b47f3").
                 when().
@@ -186,8 +209,7 @@ public class GetUsers {
                 then().
                 log().all().
                 statusCode(200).
-                header("X-Total-Count", not(emptyString())).
-                header("X-Total-Count", not(emptyOrNullString()));
+                header("X-Total-Count", notNullValue());
 
     }
 
@@ -203,7 +225,6 @@ public class GetUsers {
                 then().
                 log().all().
                 statusCode(200).
-//                extract().response().time();
                 time(Matchers.lessThan(2000L));
 
     }
