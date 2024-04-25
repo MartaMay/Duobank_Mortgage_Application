@@ -4,11 +4,6 @@
     So that I can apply for a mortgage and access my account information.
 
 
-    Feature: Client Creates New User Account
-    As a client of the mortgage application
-    The client wants to be able to create new user accounts
-    So that they can apply for mortgages and manage account information
-
     Background:
       Given the API is running
       And a valid API key is available
