@@ -6,7 +6,7 @@
     Background:
       Given There is an existing user in the database with id 11962
 
-    Scenario: Accessible Through a GET Request
+    Scenario: Get User Through a GET Request
       When client sends a GET request to /user with a valid API key and a valid user ID,
       Then client should receive a response indicating success (HTTP 200 OK).
 

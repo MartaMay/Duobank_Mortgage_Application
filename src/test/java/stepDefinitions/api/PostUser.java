@@ -6,6 +6,10 @@ import io.restassured.path.json.JsonPath;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
+import utilities.DBUtils;
+
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -188,6 +192,13 @@ public class PostUser {
     }
     @Test
     public void postUserSameEmail() {
+
+//        DBUtils.createConnection();
+//        List<Map<String, Object>> result = DBUtils.getQueryResultListOfMaps
+//                ("select email from tbl_user where id='11962'");
+//        String existingEmail = String.valueOf(result.get(0).get("id"));
+//
+//        DBUtils.close();
 
         given().
                 body(String.format("""
