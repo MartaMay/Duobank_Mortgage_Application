@@ -13,6 +13,7 @@ import io.restassured.mapper.ObjectMapperType;
 import io.restassured.path.json.JsonPath;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import pojo.User;
 import stepDefinitions.SharedData;
 import utilities.ConfigReader;
 
@@ -41,13 +42,13 @@ public class PostLoginStepDefs {
         sharedData.getRequestSpecification().header(key, value);
     }
 
-    @Given("the request body is set to the following payload as")
-    public void the_user_provides_a_valid_email_and_password(String payload) {
+    @Given("the request body is set with email and password")
+    public void the_user_provides_a_valid_email_and_password() {
         sharedData.setEmail(ConfigReader.getProperty("email"));
         sharedData.setPassword(ConfigReader.getProperty("password"));
 
-        sharedData.getRequestSpecification().body(
-                String.format(payload, sharedData.getEmail(), sharedData.getPassword()));
+        sharedData.getRequestSpecification().body(User.builder().email(sharedData.getEmail()).password(sharedData.getPassword()).build());
+
     }
 
     @When("the user sends a {string} request to {string}")
@@ -73,15 +74,15 @@ public class PostLoginStepDefs {
 
     @Then("the response status should be {int}")
     public void the_response_should_be(Integer code) {
-        sharedData.getResponse().then().statusCode(code);
-//        if (code == 200) {
-//            sharedData.getResponse().then().statusCode(code);
-//        } else {
-//        JsonPath jsonPath = sharedData.getResponse().then().extract().jsonPath();
-//        Integer actual = jsonPath.get("status");
-//        System.out.println(actual);
-//        Assert.assertEquals(code, actual);
-//    }
+//        sharedData.getResponse().then().statusCode(code);
+        if (code == 200) {
+            sharedData.getResponse().then().statusCode(code);
+        } else {
+        JsonPath jsonPath = sharedData.getResponse().then().extract().jsonPath();
+        Integer actual = jsonPath.get("status");
+        System.out.println(actual);
+        Assert.assertEquals(code, actual);
+    }
     }
 
     @Given("the request specification is reset")
@@ -135,8 +136,20 @@ public class PostLoginStepDefs {
     public void theAPIResponsePayloadShouldBeInTheFormat(String payload){
         String actual = sharedData.getResponse().then().extract().asPrettyString();
         String accessToken = sharedData.getResponse().path("access_token");
+        String expected = String.format("""
+  {
+    "success": true,
+    "message": "You've successfully logged in!",
+    "access_token": "%s",
+    "token_type": "Bearer",
+    "expires_in": 3600
+}
+  """, accessToken);
 
-        Assert.assertEquals(String.format(payload, accessToken), actual);
+        System.out.println(actual);
+        System.out.println(accessToken);
+
+        Assert.assertEquals(expected, actual);
 
 
 
@@ -153,5 +166,10 @@ public class PostLoginStepDefs {
     @Then("the response time should be less than {int} ms")
     public void theResponseTimeShouldBeLessThanMs(int time) {
         sharedData.getRequestSpecification().then().time(Matchers.lessThan((long) time));
+    }
+
+    @And("the requested body is set as")
+    public void theRequestedBodyIsSetAs(List<String> emailList) {
+        sharedData.getRequestSpecification().body(emailList);
     }
 }

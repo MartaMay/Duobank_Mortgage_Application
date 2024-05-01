@@ -9,12 +9,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import pages.LoginPage;
+import stepDefinitions.SharedData;
 import utilities.ConfigReader;
 import utilities.Driver;
 
 import java.util.List;
 
 public class LogInStepDefs {
+    public LogInStepDefs(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
+
+    SharedData sharedData;
 
     @When("User is on the login page")
     public void user_is_on_the_login_page() {
@@ -94,6 +100,15 @@ public class LogInStepDefs {
     @Then("User should be redirected to the homepage of application")
     public void userShouldBeRedirectedToTheHomepageOfApplication() {
         Assert.assertEquals("Duobank Mortgage Application", Driver.getDriver().getTitle());
+
+    }
+
+    @And("Users first and last name is displayed in the top right corner")
+    public void usersFirstAndLastNameIsDisplayedInTheTopRightCorner() {
+        String userName = Driver.getDriver().findElement(By.xpath("//div[@class='user-nav d-sm-flex d-none']")).getText();
+        String [] firstAndLast = userName.split(" ");
+        sharedData.setFirst(firstAndLast[0]);
+        sharedData.setLast(firstAndLast[1]);
 
     }
 }
