@@ -2,20 +2,18 @@ package stepDefinitions.api;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-public class GetUsers {
+public class GetUsersStepDefs {
 
 
     @BeforeClass
@@ -124,7 +122,7 @@ public class GetUsers {
                 queryParam("api_key", "c8a912d7d1c5a5a99c508f865b5eaae14a5b484f5bfe2d8f48c40e46289b47f3").
                 when().
                 log().all().
-                get("/sers").
+                get("/users").
                 then().
                 log().all().
                 statusCode(200);

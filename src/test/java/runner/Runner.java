@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions (
 
-        tags = "@db or @db_only",
+        tags = " @api_test",
         features = "src/test/resources",
         glue = "stepDefinitions",
         plugin = {
