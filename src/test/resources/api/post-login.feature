@@ -1,11 +1,7 @@
-
 @API
 Feature: As a user of the mortgage application,
   I want to be able to login using my email and password through an API endpoint,
   so that I can access my personal information and apply for a mortgage loan.
-
-  Background:
-    Given User is on the login page of the bank mortgage application
 
 
   Scenario: Accept POST request at /login
@@ -13,15 +9,8 @@ Feature: As a user of the mortgage application,
   Given the request is authenticated with a valid API key
   And the request "accept" header is set to "application/json"
   And the request "Content-type" header is set to "application/json"
-  And the request body is set to the following payload as
-
-  """
-  {
-  "email": "%s",
-  "password": "%s"
-}
-  """
-    When the user sends a "POST" request to "/login"
+  And the request body is set with email and password
+  When the user sends a "POST" request to "/login"
   Then the response log should be displayed
   Then the response status should be 200
 
@@ -41,14 +30,7 @@ Feature: As a user of the mortgage application,
 
     Given the request specification is reset
     Given the request is authenticated with a valid API key
-    And the request body is set to the following payload as
-
-         """
-          {
-            "email": "%s",
-             "password": "%s"
-          }
-          """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     And the response "Content-Type" header should be "application/json; charset=UTF-8"
@@ -61,13 +43,7 @@ Feature: As a user of the mortgage application,
     Given the request is authenticated with a valid API key
     And the request "accept" header is set to "application/json"
     And the request "Content-type" header is set to "application/json"
-    And the request body is set to the following payload as
-         """
-          {
-            "email": "%s",
-             "password": "%s"
-          }
-          """
+    And the request body is set with email and password
     When the user sends a "DELETE" request to "/login"
     Then the response log should be displayed
     Then the response status should be 405
@@ -115,13 +91,7 @@ Feature: As a user of the mortgage application,
 #    bug
     Given the request specification is reset
     Given the request is authenticated with a valid API key
-    And the request body is set as the following payload
-         """
-          {
-            "email": "mark.johnson@example.com",
-             "password": "123"
-          }
-          """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     Then the response status should be 422
@@ -134,14 +104,7 @@ Feature: As a user of the mortgage application,
     Given the request is authenticated with a valid API key
     And the request "accept" header is set to "application/json"
     And the request "Content-type" header is set to "application/json"
-    And the request body is set to the following payload as
-
-  """
-  {
-  "email": "%s",
-  "password": "%s"
-}
-  """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     Then the API should generate a temporary JWT token
@@ -152,32 +115,19 @@ Feature: As a user of the mortgage application,
     Given the request is authenticated with a valid API key
     And the request "accept" header is set to "application/json"
     And the request "Content-type" header is set to "application/json"
-    And the request body is set to the following payload as
-
-  """
-  {
-  "email": "%s",
-  "password": "%s"
-}
-  """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     And the response body should have "message" field with value "You've successfully logged in!"
 
-
+@api_test
   Scenario: API response format on successful login
 
     Given the request specification is reset
     Given the request is authenticated with a valid API key
     And the request "accept" header is set to "application/json"
     And the request "Content-type" header is set to "application/json"
-    And the request body is set to the following payload as
-  """
-  {
-  "email": "%s",
-  "password": "%s"
-}
-  """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     Then The API response payload should be in the format:
@@ -185,24 +135,19 @@ Feature: As a user of the mortgage application,
   {
     "success": true,
     "message": "You've successfully logged in!",
-    "access_token": "%s",
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2xvYW5cL2FwaSIsImF1ZCI6Imh0dHA6XC9cL2xvY2FsaG9zdFwvbG9hblwvYXBpIiwiaWF0IjoxNzE0NjAwNDEzLCJleHAiOjE3MTQ2MDQwMTMsImRhdGEiOnsidXNlcl9pZCI6IjExOTYyIiwidHlwZSI6IjIifX0.9YogDeVJLj7o_xkuuN_96MkO6kaJKr-gp9dfNpENmb0",
     "token_type": "Bearer",
     "expires_in": 3600
 }
   """
 
 
+  @api_test
   Scenario: Ensure quick response time
 
     Given the request specification is reset
     Given the request is authenticated with a valid API key
-    And the request body is set to the following payload as
-  """
-  {
-  "email": "%s",
-  "password": "%s"
-}
-  """
+    And the request body is set with email and password
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     Then the response time should be less than 1000 ms
@@ -213,13 +158,17 @@ Feature: As a user of the mortgage application,
     Given the request specification is reset
     And the server encounters an unexpected error
     Given the request is authenticated with a valid API key
-    And the request body is set as the following payload
-         """
-          {
-            "email": "mark.johnson@example.com",
-             "password": "123"
-          }
-          """
+#    And the request body is set as the following payload
+#         """
+#          {
+#            "email": "mark.johnson@example.com",
+#             "password": "123"
+#          }
+#          """
+      And the requested body is set as
+      |email1@gmail.com|
+      |email2@gmail.com|
+      |email3@gmail.com|
     When the user sends a "GET" request to "/login"
     Then the response log should be displayed
     Then the response status should be 500

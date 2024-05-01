@@ -16,6 +16,7 @@ public class SharedData {
     private String email;
 
     private String password;
+    private String userJWT;
 
     private Object fieldValue;
 
