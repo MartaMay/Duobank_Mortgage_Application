@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-public class GetUser {
+public class GetUserStepDefs {
 
     @BeforeClass
     public void setupClass(){
@@ -29,7 +29,6 @@ public class GetUser {
 
     @Test
     public void getUser(){
-
         DBUtils.createConnection();
     List<Map<String, Object>> result = DBUtils.getQueryResultListOfMaps("select * from tbl_user where email='" + ConfigReader.getProperty("email") + "'");
 
@@ -48,6 +47,7 @@ public class GetUser {
     }
     @Test
     public void getUserGetValidUser(){
+
 
 
         given().
@@ -131,6 +131,7 @@ public class GetUser {
 
     @Test
     public void getUserId(){
+
 
         given().
                 header("accept", "application/json").

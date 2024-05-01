@@ -2,18 +2,13 @@ package stepDefinitions.api;
 
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigReader;
-import utilities.DBUtils;
-
-import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-public class PostUser {
+public class PostUserStepDefs {
 
     @BeforeClass
     public void setupClass() {
@@ -21,20 +16,20 @@ public class PostUser {
     }
 
 
-//    Faker faker = new Faker();
-//
-//    String username = faker.name().username();
-//    String firstName = faker.name().firstName();
-//    String lastName = faker.name().lastName();
-//    String email = faker.internet().emailAddress();
-//    String password = "Password321!!!";
+    Faker faker = new Faker();
 
-
-    String username = "jenny.sage";
-    String firstName = "Jenny";
-    String lastName = "Sage";
-    String email = "jenny.sage@outlook.com";
+    String username = faker.name().username();
+    String firstName = faker.name().firstName();
+    String lastName = faker.name().lastName();
+    String email = faker.internet().emailAddress();
     String password = "Password321!!!";
+
+
+//    String username = "jenny.sage";
+//    String firstName = "Jenny";
+//    String lastName = "Sage";
+//    String email = "jenny.sage@outlook.com";
+//    String password = "Password321!!!";
 
 
     @Test
