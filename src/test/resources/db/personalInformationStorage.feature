@@ -1,3 +1,4 @@
+#@REGRESSION
 Feature: As a user of Duobank Mortgage Application,
   I want to store the personal information of the borrower and co-borrower (if applicable) entered on
   the Personal Information page of the mortgage application form in the database.

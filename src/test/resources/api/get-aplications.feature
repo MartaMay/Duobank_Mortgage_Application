@@ -1,5 +1,5 @@
 
-@API
+#@REGRESSION
 Feature: As a loan officer,
   I want to be able to retrieve a list of mortgage applications for a specific user,
   So that I can review their application status and history.
@@ -116,8 +116,3 @@ Feature: As a loan officer,
     Then the response log should be displayed
     Then the response log should display only users applications
 
-
-
-#  Scenario: Response time should be under 1000 milliseconds
-#    When the user sends a GET request to "/applications"
-#    Then the response time should be less than 1000 milliseconds
