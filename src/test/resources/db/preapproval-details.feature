@@ -1,3 +1,4 @@
+#@REGRESSION
 Feature: Preapproval Details in Database
   As a user of Duobank Mortgage Application
   I want my Preapproval Details page data to be stored in the database

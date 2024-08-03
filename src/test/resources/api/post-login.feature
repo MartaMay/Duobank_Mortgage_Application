@@ -1,4 +1,4 @@
-@API
+#@REGRESSION
 Feature: As a user of the mortgage application,
   I want to be able to login using my email and password through an API endpoint,
   so that I can access my personal information and apply for a mortgage loan.
@@ -91,7 +91,15 @@ Feature: As a user of the mortgage application,
 #    bug
     Given the request specification is reset
     Given the request is authenticated with a valid API key
-    And the request body is set with email and password
+
+    And the request body is set as the following payload
+         """
+          {
+            "email": "mark.johnson@example.com",
+             "password": "123HelloHello"
+          }
+          """
+
     When the user sends a "POST" request to "/login"
     Then the response log should be displayed
     Then the response status should be 422
